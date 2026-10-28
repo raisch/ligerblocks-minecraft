@@ -25,6 +25,7 @@
     "modpack:refresh": "cd packwiz && PW=../bin/packwiz && [ -x /root/go/bin/packwiz ] && PW=/root/go/bin/packwiz; \"$PW\" refresh",
     "modpack:export": "cd packwiz && PW=../bin/packwiz && [ -x /root/go/bin/packwiz ] && PW=/root/go/bin/packwiz; \"$PW\" modrinth export",
     "modpack:rebuild": "npm run modpack:refresh && npm run modpack:export",
+    "modpack:copy": "date=$(date +%Y%m%d) && target=\"Ligerblocks-$date.mrpack\" && mv \"packwiz/LigerBlocks.mrpack\" \"packwiz/$target\" && cp \"packwiz/$target\" \"modpacks/$target\"",
     "modpack:add": "cd packwiz && PW=../bin/packwiz && [ -x /root/go/bin/packwiz ] && PW=/root/go/bin/packwiz; \"$PW\" add",
     "modpack:remove": "cd packwiz && PW=../bin/packwiz && [ -x /root/go/bin/packwiz ] && PW=/root/go/bin/packwiz; \"$PW\" remove",
     "modpack:update": "cd packwiz && PW=../bin/packwiz && [ -x /root/go/bin/packwiz ] && PW=/root/go/bin/packwiz; \"$PW\" update",
