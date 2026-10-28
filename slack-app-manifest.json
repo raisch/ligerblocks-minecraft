@@ -24,6 +24,7 @@
         "chat:write",
         "chat:write.customize",
         "channels:history",
+        "commands",
         "groups:history",
         "users:read"
       ]
