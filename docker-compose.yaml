@@ -37,14 +37,25 @@ services:
       EXISTING_WHITELIST_FILE: "MERGE"
       OPS: "PlazmaBoltz,CoachRob"
       TZ: "America/New_York"
+
       # --- Additional server settings ---
       ENABLE_RCON: "TRUE"
       RCON_PORT: "25575"
       RCON_PASSWORD: "${RCON_PASSWORD}"
       SPAWN_PROTECTION: "0"
+
+      # --- Chat Bridge settings ---
+      LIGERBLOCKS_SLACK_BOT_TOKEN_FILE: /run/secrets/slack_bot_token
+      LIGERBLOCKS_SLACK_APP_TOKEN_FILE: /run/secrets/slack_app_token
+    secrets:
+      - slack_bot_token
+      - slack_app_token
     volumes:
       - ./data:/data
+      - ./mods:/data/mods:ro
+      - ./config:/config:ro
       - ./modpacks:/modpacks:ro
+
   admin:
     build:
       context: ../minecraft-admin-portal
@@ -69,3 +80,9 @@ services:
 
     depends_on:
       - minecraft
+
+secrets:
+  slack_bot_token:
+    file: ./secrets/slack-bot-token
+  slack_app_token:
+    file: ./secrets/slack-app-token

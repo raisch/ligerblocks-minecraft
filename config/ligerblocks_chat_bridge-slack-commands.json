@@ -1,0 +1,158 @@
+{
+  /*
+   * ============================
+   * Ligerblocks Chat Bridge Slack Commands Configuration
+   * 
+   * Install this file to the Minecraft server's configuration directory (/config/ligerblocks_chat_bridge-slack-commands.json)
+   *
+   * Configuration for Slack commands used by the Ligerblocks Chat Bridge
+   * Defines the commands, permissions, and arguments for Slack integration with the Ligerblocks Chat Bridge
+   *
+   * Command format is defined in COMMANDS.md
+   *
+   * Example usage:
+   *   /mc players
+   *   /mc daytime
+   *   /mc day
+   *   /mc whitelist list
+   *   /mc test-rest hello from Slack
+   *
+   * Note: Replace "SLACK_USERID" with the actual Slack user IDs of the admins.
+   *
+   * Comments in this file are stripped out before being processed by the Ligerblocks Chat Bridge.
+   */
+  // Slack user IDs who have elevated permissions
+  "admins": [
+    "U03UD1M20"
+  ],
+  "commands": {
+    // General commands (available to all)
+    "players": {
+      "minecraft": "list",
+      "permission": "everyone",
+      "description": "Show current online players",
+      "aliases": [
+        "online"
+      ],
+      "response": "channel"
+    },
+    "tps": {
+      "minecraft": "spark tps",
+      "permission": "everyone",
+      "description": "Show the server ticks per second",
+      "response": "channel"
+    },
+    "get-time": {
+      "minecraft": "time query {query}",
+      "permission": "everyone",
+      "description": "Query the Minecraft time",
+      "response": "channel",
+      "arguments": {
+        "query": {
+          "type": "option",
+          "required": true,
+          "options": [
+            "day",
+            "daytime",
+            "gametime"
+          ]
+        }
+      }
+    },
+    "tell": {
+      "minecraft": "tell {player} {message}",
+      "permission": "everyone",
+      "description": "Send a private message to a Minecraft player",
+      "arguments": {
+        "player": {
+          "type": "minecraft_username",
+          "required": true
+        },
+        "message": {
+          "type": "rest",
+          "required": true
+        }
+      }
+    },
+    "say": {
+      "minecraft": "say {message}",
+      "permission": "everyone",
+      "minecraftPermission": 2,
+      "broadcastAsSlack": true,
+      "description": "Send a message to all players in the Minecraft server",
+      "arguments": {
+        "message": {
+          "type": "rest",
+          "required": true
+        }
+      }
+    },
+    // Admin commands (available to admins)
+    "set-time": {
+      "minecraft": "time set {period}",
+      "permission": "admin",
+      "description": "Set the world time",
+      "arguments": {
+        "period": {
+          "type": "option",
+          "required": true,
+          "options": [
+            "day",
+            "noon",
+            "night",
+            "midnight"
+          ]
+        }
+      }
+    },
+    "op": {
+      "minecraft": "op {player}",
+      "permission": "admin",
+      "description": "Grant a Minecraft player operator status",
+      "arguments": {
+        "player": {
+          "type": "minecraft_username",
+          "required": true
+        }
+      }
+    },
+    "deop": {
+      "minecraft": "deop {player}",
+      "permission": "admin",
+      "description": "Remove operator status from a Minecraft player",
+      "arguments": {
+        "player": {
+          "type": "minecraft_username",
+          "required": true
+        }
+      }
+    },
+    "whitelist": {
+      "minecraft": "whitelist {action} {player}",
+      "permission": "admin",
+      "description": "List, add, or remove whitelisted players",
+      "arguments": {
+        "action": {
+          "type": "option",
+          "required": true,
+          "options": [
+            "list",
+            "add",
+            "del"
+          ]
+        },
+        "player": {
+          "type": "minecraft_username",
+          "required": false,
+          "requiredWhen": {
+            "argument": "action",
+            "values": [
+              "add",
+              "del"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
